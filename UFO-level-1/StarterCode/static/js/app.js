@@ -44,15 +44,25 @@ var form = d3.select("form");
 button.on("click", runEnter);
 form.on("submit", runEnter);
 
+// Create the function to run for both events
 function runEnter() {
+
+    // Prevent the page from refreshing
     d3.event.preventDefault();
+
+    // Select the input element and get the raw HTML node
     var inputElement = d3.select(".form-control");
+
+    // Get the value property of the input element
     var inputValue = inputElement.property("value");
 
+        //  Filter the data using datetime
         var filtered = tableData.filter(sighting => sighting.datetime === inputValue);
 
+        //  Have to clear out displayed table to create a new one
         tbody.html("");
 
+        // Use if/else to handle dates not in the table; if date matches, create a new table for display
         if (filtered.length === 0) {
             tbody.text(`No UFO sightings logged for date entered.`);
         } else {
